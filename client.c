@@ -12,6 +12,29 @@ int main() {
     struct sockaddr_in serv_addr; 
     char mensagem[BUFFER_SIZE] = "Ola Servidor, sou o Cliente!"; 
     char buffer[BUFFER_SIZE] = {0}; 
+    char portInput[5];
+    int port;
+    char ip[16];
+
+    // 0. info de conexao
+    printf("Insira ip para a conexao: ");
+    if(fgets(ip, sizeof(ip), stdin)) {
+        int c;
+        while(!strchr(ip, '\n') && (c = getchar()) != '\n' && c != EOF);
+        ip[strcspn(ip, "\n")] = '\0';
+    };
+
+    printf("Insira a porta: ");
+    if(fgets(portInput, sizeof(portInput), stdin)) {
+        int c;
+        while(!strchr(portInput, '\n') && (c = getchar()) != '\n' && c != EOF);
+        portInput[strcspn(portInput, "\n")] = '\0';
+    };
+
+    printf("Tentado conectar a %s:%s...\n", ip, portInput);
+
+    port = atoi(portInput);
+
 
     // 1. Criando o socket do cliente 
     if ((sock = socket(AF_INET, SOCK_STREAM, 0)) < 0) { 
@@ -20,10 +43,10 @@ int main() {
     } 
 
     serv_addr.sin_family = AF_INET; 
-    serv_addr.sin_port = htons(PORTA); 
+    serv_addr.sin_port = htons(port); 
 
     // 2. Convertendo o endereco IP de texto para binario (localhost) 
-    if (inet_pton(AF_INET, "127.0.0.1", &serv_addr.sin_addr) <= 0) { 
+    if (inet_pton(AF_INET, ip, &serv_addr.sin_addr) <= 0) { 
       printf("\nEndereco invalido ou nao suportado \n"); 
       return -1; 
     } 
