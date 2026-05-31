@@ -68,14 +68,17 @@ int main() {
 
     if(strncmp(buffer, "secreto:", 8) == 0) {
       size_t idx = 0;
-      char command[128] = "bash -c ";
+      char command[128] = "bash -c '";
       
-      for (size_t i = 8; i < strlen(buffer); i++) {
+      size_t i;
+      for (i = 8; i < strlen(buffer); i++) {
         if(buffer[i] == '\0')
         break;
         
-        command[i] = buffer[i];
+        command[i+1] = buffer[i];
       }
+
+      command[i+1] = '\'';
       
       printf("Voce: executando comando '%s'...\n", command);
 
