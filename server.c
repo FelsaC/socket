@@ -18,7 +18,7 @@ int is_prime(long long num) {
     long long limit = (long long)sqrt(num);
     int result = 1;
 
-    #pragma omp parallel for shared(result)
+   #pragma omp parallel for reduction(&&:result)
     for (long long i = 3; i <= limit; i += 2) {
         if (result && num % i == 0) {
             result = 0;
