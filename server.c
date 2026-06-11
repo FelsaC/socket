@@ -155,7 +155,7 @@ void* processar_cliente(void *arg) {
         double tempo_ms = (fim.tv_sec - inicio.tv_sec) * 1000.0 + 
                          (fim.tv_usec - inicio.tv_usec) / 1000.0;
         
-        log_mensagem("[Cliente %d] Resultado: %s (%.2f ms)", id_cliente, mensagem_resposta, tempo_ms);
+        log_mensagem("[Cliente %d] Resultado: %lld %s (%.2f ms)", id_cliente, numero, mensagem_resposta, tempo_ms);
 
         // Enviando resposta ao cliente
         send(novo_socket, mensagem_resposta, strlen(mensagem_resposta), 0);
