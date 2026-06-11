@@ -4,7 +4,6 @@
 #include <unistd.h> 
 #include <arpa/inet.h> 
 #include <math.h>
-#include <omp.h>
 #include <pthread.h>
 #include <time.h>
 #include <sys/time.h>
@@ -83,7 +82,6 @@ int is_prime(long long num) {
     long long limit = (long long)sqrt(num);
     int result = 1;
     
-    #pragma omp parallel for reduction(&&:result)
     for (long long i = 5; i <= limit; i += 6) {
         if (num % i == 0 || num % (i + 2) == 0) {
             result = 0;

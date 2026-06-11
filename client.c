@@ -43,7 +43,7 @@ void log_mensagem(const char *formato, ...) {
     va_end(args);
 }
 
-#include <stdarg.h>
+
 
 // Funcao para processar cada numero em uma thread
 void* processar_numero(void *arg) {
